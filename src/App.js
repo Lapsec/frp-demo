@@ -1,9 +1,11 @@
 import './App.css';
-
+import Header from './components/Header';
+import SideBar from './components/SideBar';
+import Main from './components/Main';
 import { range } from "rxjs";
 import { map, filter } from "rxjs/operators";
 
-range(1, 200)
+range(1, 2)
   .pipe(
     filter(x => x % 2 === 1),
     map(x => x + x)
@@ -13,9 +15,12 @@ range(1, 200)
 function App() {
   return (
     <div className="App">
+      <Header/>
+      <div>
+        <SideBar/>
+        <Main/>
+      </div>
       
-      这是个页面
-      
     </div>
   );
 }
