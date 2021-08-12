@@ -1,6 +1,14 @@
 import './index.css';
+import React, { useEffect } from 'react';
+import { headerMountedObserable } from '../../service/header'
+import { observable } from "rxjs";
 
 const Header = () => {
+  useEffect(() => {
+    headerMountedObserable.subscribe(res => {
+      console.log('header res', res);
+    })
+  }, []);
   return <div className='header_wrap'>
     <div>
       <span>校区：</span>
