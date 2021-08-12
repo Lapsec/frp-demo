@@ -1,6 +1,8 @@
 .main_wrap {
   font-display: inline-block;
-  width: 500px;
-  min-height: 500px;
+  width: 700px;
+  min-height: 700px;
   border: 1px solid;
+  margin-left: 80px;
+
 }
