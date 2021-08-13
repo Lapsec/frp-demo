@@ -1,18 +1,13 @@
-import { Observable } from 'rxjs';
-const headerMounted = () => {
-  Observable.fromPromise(requestHeaderData);
-}
+import { from } from 'rxjs';
 
-export const headerMountedObserable = Observable.fromPromise(requestHeaderData);
+const fetchHeaderRes = new Promise((resolve) => {
+  setTimeout(() => {
+    resolve({
+      campusId: '2',
+      gradeId: '1',
+      classId: '1',
+    })
+  }, 500)
+})
 
-const requestHeaderData = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        campusId: '1',
-        gradeId: '1',
-        classId: '1',
-      })
-    }, 500)
-  })
-}
+export const headerMountedObserable = from(fetchHeaderRes);
