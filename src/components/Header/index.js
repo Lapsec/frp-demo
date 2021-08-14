@@ -1,17 +1,19 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
-import { headerMountedObserable } from '../../service/header'
+import { headerMountedObserable$ } from '../../service/header'
 // import { observable } from "rxjs";
 
 const Header = () => {
   const [campusSelectedValue, setCampusSelectedValue] = useState('1');
+
   useEffect(() => {
-    headerMountedObserable.subscribe(res => {
+    headerMountedObserable$.subscribe(res => {
       console.log('header res', res);
       const { campusId, gradeId, classId } = res;
       setCampusSelectedValue(campusId);
     })
   }, []);
+
   return <div className='header_wrap'>
     <div>
       <span>校区：</span>
