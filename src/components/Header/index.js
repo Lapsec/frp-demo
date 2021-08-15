@@ -7,11 +7,14 @@ const Header = () => {
   const [campusSelectedValue, setCampusSelectedValue] = useState('1');
 
   useEffect(() => {
-    headerMountedObserable$.subscribe(res => {
+    const headerSubcribe = headerMountedObserable$.subscribe(res => {
       console.log('header res', res);
       const { campusId, gradeId, classId } = res;
       setCampusSelectedValue(campusId);
     })
+    return () => {
+      headerSubcribe.unsubscribe();
+    }
   }, []);
 
   return <div className='header_wrap'>
