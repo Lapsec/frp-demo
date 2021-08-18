@@ -1,4 +1,5 @@
-import { from } from 'rxjs';
+import { from, BehaviorSubject } from 'rxjs';
+// import { filter } from 'rxjs/operators'
 
 const fetchHeaderRes = new Promise((resolve) => {
   setTimeout(() => {
@@ -6,7 +7,7 @@ const fetchHeaderRes = new Promise((resolve) => {
       campusId: '2',
       gradeId: '1',
       classId: '1',
-      panelGroud: [
+      panelGroup: [
         {
           name: 'group1',
           id: 'group1',
@@ -34,4 +35,9 @@ const fetchHeaderRes = new Promise((resolve) => {
   }, 500)
 })
 
-export const headerMountedObserable$ = from(fetchHeaderRes);
+// 这个promise期望能触发一个subject
+// 同时完成cache存储
+export const headerBehaviorSubject$ = new BehaviorSubject({});
+export const headerfetchDataObservable$ = from(fetchHeaderRes);
+
+headerfetchDataObservable$.subscribe(headerBehaviorSubject$);
