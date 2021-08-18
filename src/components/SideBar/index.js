@@ -11,7 +11,6 @@ const SideBar = () => {
     headerBehaviorSubject$.subscribe((res: any) => {
       console.log('fucking side bar,', res);
       setMenuList(res?.panelGroup || []);
-      
     })
   }, [])
 

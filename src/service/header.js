@@ -41,3 +41,6 @@ export const headerBehaviorSubject$ = new BehaviorSubject({});
 export const headerfetchDataObservable$ = from(fetchHeaderRes);
 
 headerfetchDataObservable$.subscribe(headerBehaviorSubject$);
+
+// todo: 写一个针对main的filter，在页面里subscribe;
+// todo: 针对header的option change，提供一个subject，然后所有panel和headerRequest去监听
