@@ -1,4 +1,5 @@
-import { from } from 'rxjs';
+import { from, BehaviorSubject } from 'rxjs';
+// import { filter } from 'rxjs/operators'
 
 const fetchHeaderRes = new Promise((resolve) => {
   setTimeout(() => {
@@ -6,8 +7,40 @@ const fetchHeaderRes = new Promise((resolve) => {
       campusId: '2',
       gradeId: '1',
       classId: '1',
+      panelGroup: [
+        {
+          name: 'group1',
+          id: 'group1',
+          panelList: [
+            {
+              id: 'ipad_pro',
+              name: 'group1 panel1',
+            },
+            {
+              id: 'iphone12',
+              name: 'group2 panel2',
+            }
+          ],
+        },
+        {
+          name: 'group2',
+          id: 'group2',
+        },
+        {
+          name: 'group3',
+          id: 'group3',
+        }
+      ]
     })
   }, 500)
 })
 
-export const headerMountedObserable = from(fetchHeaderRes);
+// 这个promise期望能触发一个subject
+// 同时完成cache存储
+export const headerBehaviorSubject$ = new BehaviorSubject({});
+export const headerfetchDataObservable$ = from(fetchHeaderRes);
+
+headerfetchDataObservable$.subscribe(headerBehaviorSubject$);
+
+// todo: 写一个针对main的filter，在页面里subscribe;
+// todo: 针对header的option change，提供一个subject，然后所有panel和headerRequest去监听

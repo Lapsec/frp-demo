@@ -27,7 +27,8 @@ function App() {
 
 if (module.hot) {  
   module.hot.accept('./App', () => {    
-    const NextApp = require('./App').default;    
+    // eslint-disable-next-line no-unused-vars
+    const _NextApp = require('./App').default;    
     // render with new App here
   });
 }
