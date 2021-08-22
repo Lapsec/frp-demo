@@ -5,11 +5,11 @@ const fetchHeaderRes = new Promise((resolve) => {
   setTimeout(() => {
     resolve({
       campusId: '2',
-      gradeId: '1',
-      classId: '1',
+      gradeId: '2',
+      classId: '2',
       panelGroup: [
         {
-          name: 'group1',
+          name: 'apple',
           id: 'group1',
           panelList: [
             {
@@ -23,12 +23,32 @@ const fetchHeaderRes = new Promise((resolve) => {
           ],
         },
         {
-          name: 'group2',
+          name: 'tesla',
           id: 'group2',
+          panelList: [
+            {
+              id: 'teslabot',
+              name: 'teslabot',
+            },
+            {
+              id: 'models',
+              name: 'models',
+            }
+          ],
         },
         {
-          name: 'group3',
+          name: 'microsoft',
           id: 'group3',
+          panelList: [
+            {
+              id: 'windows',
+              name: 'windows',
+            },
+            {
+              id: 'onenote',
+              name: 'onenote',
+            }
+          ],
         }
       ]
     })
