@@ -1,4 +1,12 @@
-import { from, BehaviorSubject } from 'rxjs';
+import {
+  from,
+  BehaviorSubject,
+  Subject,
+  of,
+  merge,
+  switchMap,
+  catchError
+} from 'rxjs';
 // import { filter } from 'rxjs/operators'
 const mockHeaderData = {
   campusId: '2',
@@ -63,13 +71,27 @@ const fetchHeaderData = (req: any) => {
   })
 }
 
+const originReqParam = {
+  campusId: '2',
+  gradeId: '2',
+  classId: '2',
+}
 
-// 这个promise期望能触发一个subject
-// 同时完成cache存储
+// 用来接受校区、年级、班级等点击事件产、生的变化
+const headerClickSubject$ = new Subject();
+export const headerClickHandler = (payload) => {
+  headerClickSubject$.next(Object.assign(mockHeaderData, payload));
+};
+
+const headerConfigOrigin$ = of(originReqParam);
+
 export const headerBehaviorSubject$ = new BehaviorSubject({});
-export const headerfetchDataObservable$ = from(fetchHeaderData({}));
 
-headerfetchDataObservable$.subscribe(headerBehaviorSubject$);
+export const headerService$ =  merge(headerConfigOrigin$, headerClickSubject$).pipe(
+  switchMap((reqParam) => from(fetchHeaderData(reqParam))),
+  catchError(err => err)
+).subscribe(headerBehaviorSubject$)
+
 
 // todo: 写一个针对main的filter，在页面里subscribe;
 // todo: 针对header的option change，提供一个subject，然后所有panel和headerRequest去监听

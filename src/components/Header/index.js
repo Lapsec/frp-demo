@@ -1,6 +1,7 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
-import { headerfetchDataObservable$ } from '../../service/header'
+import { headerBehaviorSubject$, headerClickHandler } from '../../service/header';
+
 // import { observable } from "rxjs";
 
 const Header = () => {
@@ -9,7 +10,7 @@ const Header = () => {
   const [classSelectedValue, setClassSelectedValue] = useState('1');
 
   useEffect(() => {
-    const headerSubcribe = headerfetchDataObservable$.subscribe(res => {
+    const headerSubcribe = headerBehaviorSubject$.subscribe(res => {
       const { campusId, gradeId, classId } = res;
       setGradeSelectedValue(gradeId);
       setClassSelectedValue(classId);
@@ -21,12 +22,22 @@ const Header = () => {
   }, []);
 
   const campusChangeHandler = (e) => {
-    console.log('%cindex.js line:20 e', 'color: #007acc;', e.target.value);
+    headerClickHandler({
+      campusId: e.target.value
+    })
   };
 
-  const gradeChangeHandler = () => {};
+  const gradeChangeHandler = (e) => {
+    headerClickHandler({
+      gradeId: e.target.value
+    })
+  };
 
-  const classChangeHandler = () => {};
+  const classChangeHandler = (e) => {
+    headerClickHandler({
+      classId: e.target.value
+    })
+  };
 
   return <div className='header_wrap'>
     <div>
@@ -41,7 +52,7 @@ const Header = () => {
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div>
       <span>年级：</span>
-      <select value={gradeSelectedValue} name="年级" id="grade">
+      <select onChange={gradeChangeHandler} value={gradeSelectedValue} name="年级" id="grade">
         <option value="1">高一</option>
         <option value="2">高二</option>
         <option value="3">高三</option>
@@ -51,7 +62,7 @@ const Header = () => {
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div>
       <span>班级：</span>
-      <select value={classSelectedValue} name="年级" id="grade">
+      <select onChange={classChangeHandler} value={classSelectedValue} name="年级" id="grade">
         <option value="1">一班</option>
         <option value="2">二班</option>
         <option value="3">三班</option>
