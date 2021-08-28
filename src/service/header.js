@@ -5,7 +5,8 @@ import {
   of,
   merge,
   switchMap,
-  catchError
+  catchError,
+  defer
 } from 'rxjs';
 // import { filter } from 'rxjs/operators'
 const mockHeaderData = {

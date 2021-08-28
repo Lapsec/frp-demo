@@ -10,7 +10,7 @@ const Header = () => {
   const [classSelectedValue, setClassSelectedValue] = useState('1');
 
   useEffect(() => {
-    const headerSubcribe = headerBehaviorSubject$.subscribe(res => {
+    const headerSubcribe = headerBehaviorSubject$.subscribe((res:any) => {
       const { campusId, gradeId, classId } = res;
       setGradeSelectedValue(gradeId);
       setClassSelectedValue(classId);
